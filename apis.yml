@@ -22,8 +22,13 @@ description: >-
   and virtual agent-training scenarios. The platform emphasizes DSGVO/GDPR compliance
   with EU-only hosting in German data centers, prepared works-council documentation, and
   EU AI Act alignment, positioning itself as an alternative to US-cloud-dependent
-  conversation-intelligence tools. No public API, developer portal, or SDKs are currently
-  published; this profile was surfaced as a portfolio company of hv-capital.
+  conversation-intelligence tools. i2x publishes no developer program: no API reference,
+  no OpenAPI/AsyncAPI/GraphQL specification, no SDK on any package registry, no public
+  GitHub organization, no MCP server, no agent card, no status page and no pricing — the
+  only commercial entry point is a demo-request form. A private, login-gated API host does
+  exist at api.eu.i2x.ai serving the customer web application at app.i2x.ai, but it is
+  undocumented and is not offered as an integration surface. This profile was surfaced as
+  a portfolio company of hv-capital.
 url: https://raw.githubusercontent.com/api-evangelist/i2x/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -33,7 +38,7 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-14'
 tags:
 - Company
 - Ai Enterprise Software
@@ -48,21 +53,52 @@ apis: []
 common:
 - type: DomainSecurity
   url: security/i2x-domain-security.yml
+- type: Conformance
+  url: conformance/i2x-conformance.yml
+- type: LLMsTxt
+  url: llms/i2x-llms.txt
 - type: Website
-  url: https://www.i2x.ai/
+  url: https://i2x.ai/
 - type: PrivacyPolicy
-  url: https://www.i2x.ai/datenschutz.html
+  url: https://i2x.ai/datenschutz.html
 - type: TermsOfService
-  url: https://www.i2x.ai/nutzungsbedingungen.html
+  url: https://i2x.ai/nutzungsbedingungen.html
 - type: Support
-  url: https://www.i2x.ai/#contact
+  url: https://i2x.ai/#contact
+- type: LinkedIn
+  url: https://www.linkedin.com/company/i2x-ai/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-14'
+  status: minimal
+  artifacts_added: 4
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Full contract-discovery sweep run against i2x.ai, www.i2x.ai, app.i2x.ai,
+    api.eu.i2x.ai, api-dev.eu.i2x.ai, i2x-api.playground.dev.i2x.ai, docs.i2x.ai and
+    support.i2x.ai — OpenAPI/Swagger paths, GraphQL introspection, MCP tools/list, A2A
+    agent card and the full /.well-known/ set. No published contract of any kind exists.
+x-coverage:
+  state: none
+  reason: no-developer-program
+  detail: >-
+    i2x sells an end-user contact-center SaaS and publishes no developer program at all —
+    docs.i2x.ai has served a 52-byte nginx placeholder reading "Please stand by while
+    configuration is in progress" since August 2023 and presents a self-signed certificate
+    over HTTPS, while the only live API host, api.eu.i2x.ai, is the login-gated backend of
+    the app.i2x.ai customer application (POST /organizations/v1/login) and returns a hard
+    404 on every specification and .well-known path.
+  evidence:
+  - url: http://docs.i2x.ai/
+    status: 200
+  - url: https://api.eu.i2x.ai/openapi.json
+    status: 404
+  - url: https://api.eu.i2x.ai/.well-known/agent-card.json
+    status: 404
+  - url: https://i2x-api.playground.dev.i2x.ai/openapi.json
+    status: 404
+  checked: '2026-08-14'
