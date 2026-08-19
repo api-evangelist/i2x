@@ -1,0 +1,132 @@
+generated: '2026-08-14'
+method: searched
+source: https://i2x.ai/ (Vertrauen & Compliance section), https://i2x.ai/datenschutz.html, https://i2x.ai/impressum.html
+provider: i2x
+providerId: i2x
+description: >-
+  Conformance assessment for i2x GmbH. i2x makes its compliance posture the centre of its
+  marketing — a whole homepage section, "Vertrauen & Compliance / Gebaut für den DACH-Markt"
+  — but every claim in it is SELF-DECLARED and none is backed by a published document. There
+  is no trust centre, no certification (no ISO 27001, SOC 2, TISAX or C5 is named anywhere),
+  no subprocessor list, no published AVV/DPA text, and no security whitepaper. The
+  Datenschutzerklärung covers the marketing WEBSITE ONLY (contact-form data) and says nothing
+  about the platform that transcribes and stores customer call recordings — the processing
+  that actually carries the regulatory weight. The legal pages are unfinished templates: the
+  Impressum's Registernummer, Umsatzsteuer-Identifikationsnummer and "Verantwortlich für den
+  Inhalt" fields are blank, and both the Datenschutzerklärung and Nutzungsbedingungen carry an
+  empty "Stand:" (effective date). Entries below are graded on what is PUBLISHED and
+  verifiable by a member of the public, not on whether i2x is in fact compliant.
+scope: >-
+  API/interface standards are recorded as not-applicable: i2x publishes no OpenAPI, no
+  GraphQL SDL, no AsyncAPI, no developer portal and no API reference, so there is no
+  contract against which oauth2/oidc/rfc9457/pagination/idempotency conformance could be
+  asserted or derived. See ../well-known/i2x-well-known.yml for the probe record.
+conformance:
+- id: gdpr
+  name: GDPR / DSGVO (Regulation (EU) 2016/679)
+  conforms: false
+  status: claimed
+  evidence: >-
+    Homepage states "100% DSGVO-konform", "DSGVO-konforme Anonymisierung",
+    "Vollständige Einhaltung der Datenschutz-Grundverordnung. Auftragsverarbeitungsvertrag
+    (AVV) inklusive." The Datenschutzerklärung names a controller (i2x GmbH), a privacy
+    contact (datenschutz@i2x.ai), Art. 15-21 data-subject rights, and the Berliner
+    Beauftragte für Datenschutz und Informationsfreiheit as supervisory authority.
+  gap: >-
+    The AVV/DPA itself is not published, no subprocessor list exists, and the privacy notice
+    scopes itself to the website contact form — not to call recording, transcription or
+    model training. conforms is false because nothing publicly verifiable supports the claim.
+  url: https://i2x.ai/datenschutz.html
+- id: eu-ai-act
+  name: EU AI Act (Regulation (EU) 2024/1689)
+  conforms: false
+  status: claimed
+  evidence: >-
+    Homepage claims "EU AI Act konform" in the product section and, in the trust section,
+    the weaker "i2x ist für die Anforderungen des EU AI Acts positioniert und unterstützt
+    Ihr Unternehmen bei der AI-Governance."
+  gap: >-
+    The two statements contradict each other — "konform" versus "positioniert für". No risk
+    classification, conformity assessment, technical documentation, or transparency notice
+    is published. Real-time emotion/behaviour inference on workers in a contact centre is
+    exactly the workplace context the Act treats as high-risk, so an unevidenced conformity
+    claim is material.
+  url: https://i2x.ai/
+- id: eu-data-residency
+  name: EU/EEA data residency
+  conforms: false
+  status: claimed
+  evidence: >-
+    Homepage: "Alle Daten werden ausschließlich in hochsicheren europäischen Rechenzentren
+    gespeichert. Keine Drittstaatenübermittlung." and "Datenspeicherung in deutschen
+    Rechenzentren". Datenschutzerklärung §3: "Diese Website wird auf Servern innerhalb der
+    Europäischen Union gehostet. Alle verarbeiteten Daten verbleiben im EU/EWR-Raum."
+  gap: >-
+    Unevidenced, and in tension with observable infrastructure. The customer application
+    app.i2x.ai is served from Amazon S3 behind CloudFront, and its Content-Security-Policy
+    names media-src s3.eu-central-1.amazonaws.com — AWS Frankfurt. That is an EU region,
+    consistent with the residency claim, but it is a US-headquartered cloud provider, which
+    sits awkwardly against the homepage's "Keine Abhängigkeit von US-amerikanischen
+    Cloud-Anbietern für Ihre Gesprächsdaten." (The CloudFront edge PoP that answered our
+    probe is a function of where the probe ran, not where data is stored, and is not offered
+    as residency evidence.) The API host is api.eu.i2x.ai, whose name is consistent with EU
+    residency for the platform data plane. No subprocessor list is published, so neither the
+    claim nor the tension can be resolved from public material.
+  url: https://app.i2x.ai/
+- id: works-council-documentation
+  name: Betriebsrat / works-council documentation package (BetrVG §87)
+  conforms: false
+  status: claimed
+  evidence: >-
+    Homepage: "Betriebsrat-Paket — Vorgefertigte Unterlagen und Betriebsvereinbarungsvorlagen
+    erleichtern die Einführung mit Ihrer Arbeitnehmervertretung."
+  gap: Templates are not published or downloadable; available on request via sales only.
+  url: https://i2x.ai/
+- id: data-deletion-policy
+  name: Documented retention and deletion concept
+  conforms: false
+  status: claimed
+  evidence: >-
+    Homepage: "Datenlöschung — Klare Aufbewahrungsfristen und ein transparentes
+    Datenlöschkonzept nach Ihren Vorgaben."
+  gap: No retention schedule or deletion concept document is published.
+  url: https://i2x.ai/
+- id: iso-27001
+  name: ISO/IEC 27001
+  conforms: false
+  status: not-claimed
+  evidence: No certification is named anywhere on the site. No trust centre exists.
+- id: soc-2
+  name: SOC 2
+  conforms: false
+  status: not-claimed
+  evidence: No certification is named anywhere on the site. No trust centre exists.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  status: not-applicable
+  evidence: >-
+    No public API or authorization surface. /.well-known/oauth-authorization-server returns
+    404 on api.eu.i2x.ai. The application's own login endpoint
+    (POST /organizations/v1/login on api.eu.i2x.ai, GET returns 405) is a private
+    first-party session API, not a documented OAuth server.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  status: not-applicable
+  evidence: /.well-known/openid-configuration returns 404 on api.eu.i2x.ai.
+- id: rfc9457
+  name: RFC 9457 Problem Details for HTTP APIs
+  conforms: false
+  status: not-applicable
+  evidence: No published OpenAPI or error reference to assess.
+- id: idempotency
+  name: Idempotency keys
+  conforms: false
+  status: not-applicable
+  evidence: No published OpenAPI or conventions documentation to assess.
+notes: >-
+  No `type: Compliance` pointer is emitted in apis.yml. The compliance_published check asks
+  whether the provider publishes a compliance PROGRAM; i2x publishes a bullet list of claims
+  with no supporting artifact behind any of them. Recording the claims is useful; scoring
+  them as a published program would credit i2x with a posture it has not documented.

@@ -1,0 +1,132 @@
+generated: '2026-08-14'
+method: probed
+source: live HTTP probes of i2x.ai, www.i2x.ai, app.i2x.ai and api.eu.i2x.ai
+provider: i2x
+providerId: i2x
+description: >-
+  Probe record for the standard /.well-known/ surface across every host i2x controls.
+  NOTHING WAS FOUND. Every path on the marketing site (i2x.ai / www.i2x.ai) answers HTTP
+  200 with the 39,027-byte homepage — a static-site catch-all, not a document — and the
+  same is true of app.i2x.ai, which returns its 855-byte React shell for every path. The
+  API host api.eu.i2x.ai returns an honest hard 404 ("404 page not found", Go net/http)
+  for every well-known path. No WellKnown or SecurityTxt pointer is emitted in apis.yml
+  because no path returned a real document; a 200 carrying an HTML shell is a miss.
+result: none
+soft_404_hosts:
+- host: i2x.ai
+  note: >-
+    Static-site catch-all. Every unknown path returns HTTP 200 with the identical
+    39,027-byte homepage. Status codes from this host carry no information; only a
+    content check distinguishes a real page (e.g. /datenschutz.html, 5,700 bytes,
+    distinct <title>) from the catch-all.
+- host: app.i2x.ai
+  note: >-
+    React SPA on S3/CloudFront. Every path returns the same 855-byte index shell
+    (HTTP 200, text/html). Treated as a miss on every probe.
+probes:
+- host: i2x.ai
+  path: /.well-known/security.txt
+  url: https://i2x.ai/.well-known/security.txt
+  status: 200
+  content_type: text/html
+  bytes: 39027
+  hit: false
+  note: catch-all homepage, not a security.txt
+- host: i2x.ai
+  path: /.well-known/openid-configuration
+  url: https://i2x.ai/.well-known/openid-configuration
+  status: 200
+  content_type: text/html
+  bytes: 39027
+  hit: false
+  note: catch-all homepage
+- host: i2x.ai
+  path: /.well-known/oauth-authorization-server
+  url: https://i2x.ai/.well-known/oauth-authorization-server
+  status: 200
+  content_type: text/html
+  bytes: 39027
+  hit: false
+  note: catch-all homepage
+- host: i2x.ai
+  path: /.well-known/api-catalog
+  url: https://i2x.ai/.well-known/api-catalog
+  status: 200
+  content_type: text/html
+  bytes: 39027
+  hit: false
+  note: catch-all homepage
+- host: i2x.ai
+  path: /.well-known/ai-plugin.json
+  url: https://i2x.ai/.well-known/ai-plugin.json
+  status: 200
+  content_type: text/html
+  bytes: 39027
+  hit: false
+  note: catch-all homepage
+- host: i2x.ai
+  path: /llms.txt
+  url: https://i2x.ai/llms.txt
+  status: 200
+  content_type: text/html
+  bytes: 39027
+  hit: false
+  note: catch-all homepage; no llms.txt is served
+- host: app.i2x.ai
+  path: /.well-known/security.txt
+  url: https://app.i2x.ai/.well-known/security.txt
+  status: 200
+  content_type: text/html
+  bytes: 855
+  hit: false
+  note: SPA index shell
+- host: app.i2x.ai
+  path: /.well-known/agent-card.json
+  url: https://app.i2x.ai/.well-known/agent-card.json
+  status: 200
+  content_type: text/html
+  bytes: 855
+  hit: false
+  note: SPA index shell, not an AgentCard
+- host: api.eu.i2x.ai
+  path: /.well-known/security.txt
+  url: https://api.eu.i2x.ai/.well-known/security.txt
+  status: 404
+  content_type: text/plain
+  bytes: 19
+  hit: false
+- host: api.eu.i2x.ai
+  path: /.well-known/openid-configuration
+  url: https://api.eu.i2x.ai/.well-known/openid-configuration
+  status: 404
+  content_type: text/plain
+  bytes: 19
+  hit: false
+- host: api.eu.i2x.ai
+  path: /.well-known/oauth-authorization-server
+  url: https://api.eu.i2x.ai/.well-known/oauth-authorization-server
+  status: 404
+  content_type: text/plain
+  bytes: 19
+  hit: false
+- host: api.eu.i2x.ai
+  path: /.well-known/oauth-protected-resource
+  url: https://api.eu.i2x.ai/.well-known/oauth-protected-resource
+  status: 404
+  content_type: text/plain
+  bytes: 19
+  hit: false
+- host: api.eu.i2x.ai
+  path: /.well-known/agent-card.json
+  url: https://api.eu.i2x.ai/.well-known/agent-card.json
+  status: 404
+  content_type: text/plain
+  bytes: 19
+  hit: false
+- host: api.eu.i2x.ai
+  path: /.well-known/agent.json
+  url: https://api.eu.i2x.ai/.well-known/agent.json
+  status: 404
+  content_type: text/plain
+  bytes: 19
+  hit: false

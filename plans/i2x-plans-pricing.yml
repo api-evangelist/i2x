@@ -1,0 +1,47 @@
+generated: '2026-08-14'
+method: searched
+source: https://i2x.ai/
+provider: i2x
+providerId: i2x
+name: i2x Plans and Pricing
+description: >-
+  i2x publishes NO pricing. The company site is a single marketing page whose only
+  commercial call to action is "Demo buchen" / "Demo anfragen" — a lead form asking for
+  name, company, email, phone and contact-center headcount (banded 1-10, 11-50, 51-200,
+  201-500, 500+), plus a phone number (+49 2161 9479 350) and hello@i2x.ai. There is no
+  pricing page, no tier table, no per-seat or per-minute rate, no free tier and no trial.
+  The headcount bands on the demo form are the only hint that pricing is sized by agent
+  seats, and they are a qualification field, not a published price. The former WordPress
+  site (i2x.ai/en/product/... and its pricing paths) is gone; those URLs now fall through
+  to the homepage catch-all.
+plan_count: 0
+pricing_published: false
+pricing_model: contact-sales
+currency: null
+free_tier: false
+trial: false
+self_serve_signup: false
+plans: []
+signals:
+- signal: demo-request-only
+  evidence: >-
+    Homepage contact section: "Vereinbaren Sie eine persönliche Demo" with a form
+    (Name, Unternehmen, E-Mail, Telefon, Anzahl Mitarbeiter im Contact Center, Nachricht)
+    and a consent checkbox. No price appears anywhere on the page.
+  url: https://i2x.ai/#contact
+- signal: seat-band-qualification
+  evidence: >-
+    The demo form's "Anzahl Mitarbeiter im Contact Center" select offers 1-10, 11-50,
+    51-200, 201-500, 500+ — consistent with seat-based enterprise pricing, but no rate
+    is published for any band.
+  url: https://i2x.ai/
+- signal: no-pricing-page
+  evidence: >-
+    The site exposes only #features, #how-it-works, #trust, #contact plus four legal
+    pages (impressum, datenschutz, nutzungsbedingungen, cookie-policy) and an English
+    mirror at /en/index.html. No pricing or plans page exists in the navigation.
+  url: https://i2x.ai/en/index.html
+notes: >-
+  No `type: Plans` pointer is emitted in apis.yml. This file records a measured ABSENCE
+  of published pricing, and a pointer would assert that i2x publishes plans it does not.
+  Same rule as the well-known probe: document the zero, do not score it as a presence.
