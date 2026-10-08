@@ -64,6 +64,8 @@ tags:
 - Germany
 apis: []
 common:
+- type: Plans
+  url: plans/i2x-plans-pricing.yml
 - url: https://i2x.ai/blog/
   type: Blog
 - type: DomainSecurity
